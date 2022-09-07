@@ -13,7 +13,23 @@ public:
         int sum = 0;
         int start = 0;
         int i = 0;
+        string sub = "";
+        vector<int> negatives;
+        // to check for alphabet values
+        while(i< n) {
+            if(numbers[i] >= 'a' && numbers[i] <= 'z') {
+                // numbers[i] = numbers[i] - 'a' + 49;
+                sub += to_string(numbers[i] - 'a' + 1);
+            }
+            else 
+                sub += numbers[i];
+            i++;
+        }
 
+        // to add the numbers in the input
+        i=0;
+        n = sub.size();
+        numbers = sub;
         while(i < n) {
             if(numbers[i] == ',') {
                 int num = stoi(numbers.substr(start, i-start));
@@ -22,8 +38,7 @@ public:
             }
             i++;
         }
-
-        // handling negatives
+        
         int num = stoi(numbers.substr(start, n-start));
         sum += num;
         
