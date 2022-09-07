@@ -33,14 +33,36 @@ public:
         while(i < n) {
             if(numbers[i] == ',') {
                 int num = stoi(numbers.substr(start, i-start));
+                if(num<=1000)
                 sum += num;
+                if(num<0)
+                {
+                    negatives.push_back(num);
+                }
                 start = i+1;
             }
             i++;
         }
-        
+
+        // handling negatives
         int num = stoi(numbers.substr(start, n-start));
-        sum += num;
+        if(num<0) {
+            negatives.push_back(num);
+        }
+
+        if(negatives.size()>0) {
+            string e = "Negatives not allowed ";
+            
+            for(int i=0;i<negatives.size();i++) {
+                e += to_string(negatives[i]);
+                e += " ";
+            }
+            
+            throw std::invalid_argument(e);
+        }
+
+        if(num<=1000)
+            sum += num;
         
         return sum;
     }
@@ -53,8 +75,15 @@ int main() {
     string numbers;
     cin>> numbers;
     
-    int ans = sc.add(numbers);
-   
+    int ans;
+    try {
+        ans = sc.add(numbers);
+    }
+    catch(invalid_argument& e) {
+        cout<<e.what()<<endl;
+        return 0;
+    }
+
     cout<<ans<<endl;
 
     return 0;
