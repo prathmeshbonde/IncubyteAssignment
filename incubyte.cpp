@@ -33,8 +33,9 @@ public:
         while(i < n) {
             if(numbers[i] == ',') {
                 int num = stoi(numbers.substr(start, i-start));
+                // numbers above 1000 are ignored, 1000 is valid, 1001+.. is not
                 if(num<=1000)
-                sum += num;
+                    sum += num;
                 if(num<0)
                 {
                     negatives.push_back(num);
@@ -73,8 +74,10 @@ int main() {
     
     cout<<"Enter numbers seperated by ','\n";
     string numbers;
-    cin>> numbers;
-    
+    // if want to include \n as well, then setting delimiter to ' '
+    // getline(cin, numbers, ' ');
+    // else by default \n
+    cin>>numbers;
     int ans;
     try {
         ans = sc.add(numbers);
